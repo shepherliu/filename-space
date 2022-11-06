@@ -23,7 +23,6 @@
       >
         <el-menu-item index="1">Mints</el-menu-item>
         <el-menu-item index="2">Names</el-menu-item>
-        <el-menu-item index="3">Uploads</el-menu-item>
       </el-menu>
     </el-col>
     <!-- notify component -->
@@ -448,8 +447,7 @@ const login = async () => {
 try{
   activeIndex.value = String(tools.getUrlParamter('activeIndex'));
   if(activeIndex.value != '1' &&
-    activeIndex.value != '2' &&
-    activeIndex.value != '3'){
+    activeIndex.value != '2'){
     activeIndex.value = '1';
   }
 }catch(e){

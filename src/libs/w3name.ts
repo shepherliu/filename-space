@@ -2,7 +2,7 @@ import * as Name from 'w3name';
 
 import { stringToUint8 } from "./tools";
 
-const createNewName = async (value:any = '') => {
+export const createNewName = async (value:any = '') => {
 	const name = await Name.create();
 
 	const revision = await Name.v0(name, value);
@@ -12,7 +12,7 @@ const createNewName = async (value:any = '') => {
 	return name;
 }
 
-const updateName = async (name:any, value: any = '') => {
+export const updateName = async (name:any, value: any = '') => {
 	if (name == null || name == undefined){
 		return createNewName(value);
 	}
@@ -30,7 +30,7 @@ const updateName = async (name:any, value: any = '') => {
 	return name;
 }
 
-const parseName = async (key:string) => {
+export const parseName = async (key:string) => {
 	try{
 		return await Name.from(stringToUint8(key));
 	}catch(e){
@@ -42,7 +42,7 @@ const parseName = async (key:string) => {
 	}
 }
 
-const resolveName = async (name:any) => {
+export const resolveName = async (name:any) => {
 	const revision = await Name.resolve(name);
 
 	return revision.value;

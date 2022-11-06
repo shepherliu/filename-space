@@ -2,12 +2,7 @@
   <div class="file-arae">
     <el-container>
       <el-main
-        style="height: 450px;margin-top: 20px;" 
-        v-loading="loadStatus"
-        element-loading-text="Loading..."
-        :element-loading-spinner="svg"
-        element-loading-svg-view-box="-10, -10, 50, 50"
-        element-loading-background="#ffffff"
+        style="height: 450px;margin-top: 20px;"
       > 
         <el-row :gutter="20">
           <el-col>
@@ -42,7 +37,17 @@
                 </td>
                 <td style="color: #409EFF;">available</td>
                 <td>
-                  <el-button type="primary" @click="onClickToRegisterName(v)">Register</el-button>
+                  <el-button 
+                    type="primary" 
+                    @click="onClickToRegisterName(v)"
+                    v-loading="loadRegisterStatus"
+                    element-loading-text="Loading..."
+                    :element-loading-spinner="svg"
+                    element-loading-svg-view-box="-10, -10, 50, 50"
+                    element-loading-background="#00FFD1"
+                  >
+                    Register
+                  </el-button>
                 </td>
               </tr>
               <tr v-if="v.nameId > 0" style="color: #E6A23C;">
@@ -74,18 +79,22 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from "vue"
 
-import { FileNameSpace } from "../libs/filenamespace";
+import { FileNameSpace } from "../libs/filenamespace"
+import * as w3name from "../libs/w3name"
 
 import { connectState } from "../libs/connect"
+import * as crypto from "../libs/crypto"
+import * as element from "../libs/element"
+import * as tools from "../libs/tools"
+
 import * as constant from "../constant"
 
 const searchName = ref('');
-
 const showName = ref(false);
-
 const nameLists = ref(new Array());
+const loadRegisterStatus = ref(false);
 
 const filenamespace = new FileNameSpace();
 
@@ -99,6 +108,17 @@ const svg = `
         L 15 15
       " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
     `;
+
+//transaction explore url
+const transactionExplorerUrl = (transaction:string) => {
+  for(const i in constant.chainList){
+    if(connectState.chainId === constant.chainList[i].chainId){
+      const blockExplorerUrls = constant.chainList[i].blockExplorerUrls;
+      return blockExplorerUrls + '/tx/' + transaction;
+    }
+  }
+  return transaction;
+}    
 
 //address explore url
 const tokenExplorerUrl = (address:string, tokenId:string = '') => {
@@ -135,10 +155,38 @@ const onClickToSearch = async () => {
 }
 
 const onClickToRegisterName = async (nameInfo:any) => {
+  try {
+    loadRegisterStatus.value = true;
 
+    const count = await filenamespace.balanceOf(connectState.userAddr.value);
+    if(count > 0){
+      element.alertMessage("you have already registered one name!");
+      return;
+    }
+
+    const name = await w3name.createNewName();
+
+    const publicKey = name.toString();
+    const privateKey = await crypto.encryptPasswordWithWallet(tools.uint8ToString(name.key.bytes));
+
+    if(privateKey.sign_data === null || privateKey.sign_data === '' || privateKey.signature === null || privateKey.signature === ''){
+      return;
+    }
+
+    const tx = await filenamespace.mint(nameInfo.name, '', publicKey, JSON.stringify(privateKey));
+    connectState.transactions.value.unshift(tx);
+    connectState.transactionCount.value++;
+    const msg = `<div><span>Register name success! Transaction: </span><a href="${transactionExplorerUrl(tx)}" target="_blank">${tx}</a></div>`;
+    element.elMessage('success', msg, true);       
+  }catch(e){
+    element.alertMessage(e);
+  }finally{
+    loadRegisterStatus.value = false;
+    onClickToSearch();
+  }
 }
 
 const onClickToViewNameInfo = async (nameInfo:any) => {
-
+  console.log(nameInfo);
 }
 </script>>

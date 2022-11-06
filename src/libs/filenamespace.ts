@@ -205,11 +205,7 @@ export class FileNameSpace {
 		}
 
 		avatar = avatar.trim();
-		if(avatar.length <= 0){
-			throw new Error("invalid avatar url link!");
-		}
-
-		if(avatar.search("https://") != 0 ){
+		if(avatar.length > 0 && avatar.search("https://") != 0 ){
 			throw new Error("avatar url must started with 'https://'!");
 		}
 

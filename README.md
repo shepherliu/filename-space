@@ -40,7 +40,7 @@
            
  6.  see our daemon website: https://filename-space.vercel.app
  
- 7.  see our daemon video:
+ 7.  see our daemon video: https://youtu.be/o2sYe3K7PXU
 
 
 ***Future Plans:***

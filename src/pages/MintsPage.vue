@@ -84,7 +84,7 @@ import { ref } from "vue"
 import { FileNameSpace } from "../libs/filenamespace"
 import * as w3name from "../libs/w3name"
 
-import { connectState } from "../libs/connect"
+import { networkConnect, connectState } from "../libs/connect"
 import * as crypto from "../libs/crypto"
 import * as element from "../libs/element"
 import * as tools from "../libs/tools"
@@ -158,6 +158,8 @@ const onClickToRegisterName = async (nameInfo:any) => {
   try {
     loadRegisterStatus.value = true;
 
+    await networkConnect();
+
     const count = await filenamespace.balanceOf(connectState.userAddr.value);
     if(count > 0){
       element.alertMessage("you have already registered one name!");
@@ -187,6 +189,9 @@ const onClickToRegisterName = async (nameInfo:any) => {
 }
 
 const onClickToViewNameInfo = async (nameInfo:any) => {
+  nameInfo.isOwner = nameInfo.owner.toLowerCase() === connectState.userAddr.value.toLowerCase();
+  nameInfo.updated = nameInfo.owner === nameInfo.oldOwner;
+
   console.log(nameInfo);
 }
 </script>>

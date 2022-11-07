@@ -52,3 +52,81 @@
 3. name service SDK supports, then you can ealisy resolve the name and address in your own apps.
 
 4. ui/ux degsign for more user friendly.
+
+***How it use chainlink:***
+
+1. we use the chainlink keeper functions in our smart contracts, these smart contracts are Keepers-compatible Contracts:
+
+           contracts/FileNameSpace.sol
+           
+2. the checkUpkeep function will check if the name nft is outdated or not.
+
+3. the performUpkeep function will automaticly set the name nft status to outdated if transfer happened. 
+
+***How it use filecoin:***
+
+1. we use web3storage to upload the the nft avatar images to the filecoin.
+
+2. we use w3name to store mutable configures binding to the name nft. 
+
+***Resources:***
+
+1.Block Chain Resource Docs:
+
+getting started with Ploygon Network: https://docs.polygon.technology/, https://faucet.polygon.technology/
+
+2. Distributed Storage Resource Docs:
+
+getting started with IPFS & Filecoin: https://bitly.protocol.ai/IPFS_Filecoin_Get_Started
+
+getting started with Web3Storage: https://web3.storage/docs/
+
+getting started with W3name: https://web3.storage/docs/how-tos/w3name/
+
+3. Chainlink Resource Docs
+
+getting started with Chainlink: https://docs.chain.link/
+
+getting started with Chainlink Keeper: https://docs.chain.link/docs/chainlink-keepers/compatible-contracts/
+
+register Chainlink upkeep: https://docs.chain.link/docs/chainlink-keepers/register-upkeep/
+
+4. Transak Docs:
+
+getting started wit Transak: https://integrate.transak.com/
+
+5. Unstoppable Domains:
+
+unstoppable Domains Resolution API: https://docs.alchemy.com/alchemy/enhanced-apis/unstoppable-domains-apis
+
+NFT domains registry architecture: https://docs.unstoppabledomains.com/domain-registry-essentials/uns-vs-cns-comparison
+
+domain resolution SDKs: https://docs.unstoppabledomains.com/send-and-receive-crypto-payments/resolution-libraries
+
+how to resolve domains using direct blockchain call (without SDK): https://docs.unstoppabledomains.com/send-and-receive-crypto-payments/direct-blockchain-calls
+
+crypto payments integration guide: https://docs.unstoppabledomains.com/send-and-receive-crypto-payments/crypto-payments
+
+6. Smart contract Resource Docs:
+
+online solidity compilier: https://chainide.com/, https://remix.ethereum.org/
+
+getting started with ethers.js: https://docs.ethers.io/v5/
+
+getting started with solidity: https://docs.soliditylang.org/en/latest/
+
+7. Fronted Resource Docs:
+
+getting started with Vue3: https://vuejs.org/guide/introduction.html
+
+getting started with Element Ui: https://element-plus.org/en-US/component/menu.html
+
+
+
+***Contract Me:***
+
+Email: shepher.liu@gmail.com
+
+Unstoppable Domain Register Email: shepher.liu@gmail.com
+
+Discord: swarmlover#4063

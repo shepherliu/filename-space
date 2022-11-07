@@ -51,7 +51,9 @@
 
 3. name service SDK supports, then you can ealisy resolve the name and address in your own apps.
 
-4. ui/ux degsign for more user friendly.
+4. filecoin fvm chain support.
+
+5. ui/ux degsign for more user friendly.
 
 ***How it use chainlink:***
 

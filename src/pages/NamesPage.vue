@@ -31,24 +31,36 @@
               </el-avatar>
             </template>
           </el-upload>
-          <table>
+          <table style="text-align:left;">
             <tr>
               <td>Id</td>
               <td>
-                <el-link style="float: left;" target="_blank" :href="tokenExplorerUrl(filenamespace.getAddress(), nameDetailInfo.nameId)">{{nameDetailInfo.nameId}}</el-link>
+                <el-link type="primary" style="float: left;" target="_blank" :href="tokenExplorerUrl(filenamespace.getAddress(), nameDetailInfo.nameId)">{{nameDetailInfo.nameId}}</el-link>
               </td>
             </tr>
             <tr>
               <td>Name</td>
               <td>
-                <el-link style="float: left;" target="_blank" :href="tokenExplorerUrl(filenamespace.getAddress(), nameDetailInfo.nameId)">{{nameDetailInfo.name}}</el-link>
+                <el-link type="primary" style="float: left;" target="_blank" :href="tokenExplorerUrl(filenamespace.getAddress(), nameDetailInfo.nameId)">{{nameDetailInfo.name}}</el-link>
               </td>
             </tr>
             <tr>
               <td>Owner</td>
               <td>
-                <el-link target="_blank" :href="addressExplorerUrl(nameDetailInfo.owner)">{{tools.shortString(nameDetailInfo.owner)}} <el-icon @click="onClickToCopy(nameDetailInfo.owner)"><document-copy /></el-icon></el-link>
+                <el-link type="primary" target="_blank" :href="addressExplorerUrl(nameDetailInfo.owner)">{{tools.shortString(nameDetailInfo.owner)}}</el-link><el-icon @click="onClickToCopy(nameDetailInfo.owner)"><document-copy /></el-icon>
               </td>
+            </tr>
+            <template v-for="info in nameDetailInfo.externalInfos" :key="info.name">
+              <tr v-if="nameDetailInfo.isOwner || nameDetailInfo.updated">
+                <td>{{info.name}}</td>
+                <td style="color: #409EFF">{{info.value}}</td>
+                <td><el-button v-if="nameDetailInfo.isOwner" type="danger" @click="onClickToRemoveKeyValues(info.name)"><el-icon><Minus /></el-icon></el-button></td>
+              </tr>
+            </template>
+            <tr v-if="nameDetailInfo.isOwner">
+              <td><el-input v-model="inputNameKey" placeholder="Key" clearable /></td>
+              <td><el-input v-model="inputNameValue" placeholder="Value" clearable /></td>
+              <td><el-button type="primary" @click="onClickToAddKeyValues"><el-icon><Plus /></el-icon></el-button></td>
             </tr>
           </table>
         </template>
@@ -165,8 +177,9 @@ import { FileNameSpace } from "../libs/filenamespace"
 import * as element from "../libs/element"
 import * as tools from "../libs/tools"
 import * as storage from '../libs/storage'
-
+import * as w3name from "../libs/w3name"
 import * as constant from "../constant"
+import * as crypto from "../libs/crypto"
 
 const resolution = new Resolution();
 
@@ -179,6 +192,9 @@ const nameLists = ref(new Array());
 const loadStatus = ref(false);
 const loadDrawerStatus = ref(false);
 const showNameSpaceVisiable = ref(false);
+
+const inputNameKey = ref('');
+const inputNameValue = ref('');
 
 const nameDetailInfo = ref({
   nameId: 0,
@@ -259,6 +275,8 @@ const handleAvtarExceed: UploadProps['onExceed'] = (files:any) => {
 };
 
 const onClickToSearch = async () => {
+  tools.setUrlParamter('nameId', '0');
+  
   searchContent.value = searchContent.value.trim();
   if(searchContent.value === ''){
     handleClick();
@@ -305,10 +323,47 @@ const onClickToViewNameInfo = async (nameInfo:any) => {
   nameDetailInfo.value.oldOwner = nameInfo.oldOwner;
   nameDetailInfo.value.updated = nameInfo.updated;
   nameDetailInfo.value.isOwner = nameInfo.isOwner;
+
+  const name = await w3name.parseName(nameInfo.publicKey);
+  if(name != null){
+    try{
+      nameDetailInfo.value.externalInfos = new Array();
+      const values = JSON.parse(await w3name.resolveName(name));
+      for(const k in values){
+        nameDetailInfo.value.externalInfos.push(values[k]);
+      }
+    }catch(e){
+      nameDetailInfo.value.externalInfos = new Array();
+    }
+  }else{
+    nameDetailInfo.value.externalInfos = new Array();
+  }
 }
 
-const cancelNameSpaceUpdate = async () => {
-  showNameSpaceVisiable.value = false;
+const onClickToAddKeyValues = async () => {
+  if(inputNameKey.value === '' || inputNameValue.value === ''){
+    return;
+  }
+
+  nameDetailInfo.value.externalInfos.push({
+    name: inputNameKey.value,
+    value: inputNameValue.value,
+  });
+
+  inputNameKey.value = '';
+  inputNameValue.value = '';
+}
+
+const onClickToRemoveKeyValues = async (key:string) => {
+  const externalInfos = new Array();
+
+  for(const i in nameDetailInfo.value.externalInfos){
+    if(nameDetailInfo.value.externalInfos[i].name != key){
+      externalInfos.push(nameDetailInfo.value.externalInfos[i]);
+    }
+  }
+
+  nameDetailInfo.value.externalInfos = externalInfos;
 }
 
 const confirmNameSpaceUpdate = async () => {
@@ -325,11 +380,48 @@ const confirmNameSpaceUpdate = async () => {
       element.elMessage('success', msg, true);    
     }
 
+    const externalInfos = {};
+    for(const i in nameDetailInfo.value.externalInfos){
+      const key = nameDetailInfo.value.externalInfos[i].name;
+      externalInfos[key] = nameDetailInfo.value.externalInfos[i];
+    }
+
+    let privateKey = null;
+
+    try{
+      privateKey = await crypto.decryptPasswordWithWallet(JSON.parse(nameDetailInfo.value.privateKey));
+    }catch(e){
+      privateKey = null;
+    }
+
+    const name = await w3name.updateName(privateKey, JSON.stringify(externalInfos));
+
+    if(name.toString() != nameDetailInfo.value.publicKey){
+      privateKey = await crypto.encryptPasswordWithWallet(tools.uint8ToString(name.key.bytes));
+      if(privateKey.sign_data === null || privateKey.sign_data === '' || privateKey.signature === null || privateKey.signature === ''){
+      return;
+      }
+
+      const tx = await filenamespace.updateKeys(nameDetailInfo.value.nameId, name.toString(), JSON.stringify(privateKey));
+      connectState.transactions.value.unshift(tx);
+      connectState.transactionCount.value++;
+      const msg = `<div><span>Update name keys success! Transaction: </span><a href="${transactionExplorerUrl(tx)}" target="_blank">${tx}</a></div>`;
+      element.elMessage('success', msg, true);    
+    }else{
+      const msg = `Update name keys success!`;
+      element.elMessage('success', msg, false);  
+    }
+
+    handleClick();
   }catch(e){
     element.alertMessage(e);
   }finally{
     loadDrawerStatus.value = false;
   }  
+}
+
+const cancelNameSpaceUpdate = async () => {
+  showNameSpaceVisiable.value = false;
 }
 
 const onClickToBurnNameInfo = async (nameInfo:any) => {
@@ -463,12 +555,18 @@ const getNameCount = async () => {
     hasMore.value = true;
   }
 
+  const nameId = Number(tools.getUrlParamter('nameId'));
+
   const infoList = new Array();
   for(const i in indexs){
     const res = await filenamespace.getNameInfoById(indexs[i]);
 
     res.isOwner = res.owner.toLowerCase() === connectState.userAddr.value.toLowerCase();
     res.updated = res.owner === res.oldOwner;
+
+    if(nameId > 0 && nameId != res.nameId){
+      continue;
+    }
 
     infoList.push(res);
   }
@@ -504,7 +602,11 @@ const handleClick = async () => {
       pageCount.value = 0;
     }
 
-    await getNameCount();
+    if(searchContent.value != ''){
+      await onClickToSearch();
+    }else{
+      await getNameCount();
+    }
 
   }catch(e){
     nameLists.value = new Array();

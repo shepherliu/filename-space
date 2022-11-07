@@ -189,9 +189,12 @@ const onClickToRegisterName = async (nameInfo:any) => {
 }
 
 const onClickToViewNameInfo = async (nameInfo:any) => {
-  nameInfo.isOwner = nameInfo.owner.toLowerCase() === connectState.userAddr.value.toLowerCase();
-  nameInfo.updated = nameInfo.owner === nameInfo.oldOwner;
+  //parse the redirect url
+  connectState.activeIndex.value = '2';
 
-  console.log(nameInfo);
+  tools.setUrlParamter('activeIndex', '2');  
+  tools.setUrlParamter('nameId', nameInfo.nameId);
 }
+
+tools.setUrlParamter('nameId', '0');
 </script>>

@@ -55,6 +55,7 @@ export const bobaTestContractAddress = "0xF5B97a4860c1D81A1e915C40EcCB5E4a5E6b83
 //green dao contract address
 export const fileNameSpaceContractAddress = {
   5: "0x62cf189De580c8AA595E7774142828f78BA85815",
+  80001: "0x45Ab45c12489E04eEFf68dA55a42Cd9B1E758FD2",
 };
 
 //token List

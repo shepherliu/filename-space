@@ -41,3 +41,14 @@
  6.  see our daemon website: https://filename-space.vercel.app
  
  7.  see our daemon video:
+
+
+***Future Plans:***
+
+1. support private configures with your binding names, which will encrypt the configs with your wallet and the save to the filecoin network through w3name service.
+
+2. support files upload with your bing names, you can ealisy manage your important files stored on the filecoin network through web3.storage and w3name serivce.
+
+3. name service SDK supports, then you can ealisy resolve the name and address in your own apps.
+
+4. ui/ux degsign for more user friendly.

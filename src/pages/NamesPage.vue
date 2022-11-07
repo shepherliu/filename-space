@@ -530,7 +530,6 @@ const sendNFT = (nftName:string, name:string, address:string, tokenId:string) =>
       await networkConnect();
 
       const tx = await filenamespace.transferFrom(connectState.userAddr.value, address, parseInt(tokenId));
-      await tx.wait();
 
       connectState.transactions.value.unshift(tx.hash);
       connectState.transactionCount.value++;

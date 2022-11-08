@@ -23,6 +23,11 @@ export const updateName = async (name:any, value: any = '') => {
 
 	const revision = await Name.resolve(name);
 
+	//value not changed
+	if(revision.value === value){
+		return name;
+	}
+
 	const nextRevision = await Name.increment(revision, value);
 
 	await Name.publish(nextRevision, name.key);

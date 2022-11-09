@@ -53,7 +53,10 @@
             <template v-for="info in nameDetailInfo.externalInfos" :key="info.name">
               <tr v-if="nameDetailInfo.isOwner || nameDetailInfo.updated">
                 <td>{{info.name}}</td>
-                <td style="color: #409EFF">{{info.value}}</td>
+                <td style="color: #409EFF">
+                  <el-input v-if="nameDetailInfo.isOwner" v-model="info.value" clearable></el-input>
+                  <p v-if="!nameDetailInfo.isOwner">{{info.value}}</p>
+                </td>
                 <td><el-button v-if="nameDetailInfo.isOwner" type="danger" @click="onClickToRemoveKeyValues(info.name)"><el-icon><Minus /></el-icon></el-button></td>
               </tr>
             </template>
@@ -383,6 +386,10 @@ const confirmNameSpaceUpdate = async () => {
     const externalInfos = {};
     for(const i in nameDetailInfo.value.externalInfos){
       const key = nameDetailInfo.value.externalInfos[i].name;
+      const value = nameDetailInfo.value.externalInfos[i].value;
+      if(key === null || key === undefined || key === '' || value === null || value === undefined || value === ''){
+        continue;
+      }
       externalInfos[key] = nameDetailInfo.value.externalInfos[i];
     }
 

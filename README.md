@@ -1,6 +1,6 @@
 # filename-space
 
- filename space, a decentralized web3 name service based on ethereum and filecoin to make people use the web3 apps simply and ealisy.
+ filename space, a decentralized web3 name service based on evm chains and filecoin network to make people use the web3 apps simply and ealisy.
  
  There are some features which maybe attract you:
  

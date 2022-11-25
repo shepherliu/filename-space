@@ -14,6 +14,15 @@
  
  5. mutable configs are supported based on the web3.storage and w3name services, which will store your avatars and configures on the filecoin network.
  
+ ***Contract Me:***
+
+Email: shepher.liu@gmail.com
+
+Unstoppable Domain Register Email: shepher.liu@gmail.com
+
+Discord: swarmlover#4063
+
+ 
  ***How to run:***
  
  0. make sure you are using linux system installed with git, node, npm .etc.
@@ -122,13 +131,3 @@ getting started with solidity: https://docs.soliditylang.org/en/latest/
 getting started with Vue3: https://vuejs.org/guide/introduction.html
 
 getting started with Element Ui: https://element-plus.org/en-US/component/menu.html
-
-
-
-***Contract Me:***
-
-Email: shepher.liu@gmail.com
-
-Unstoppable Domain Register Email: shepher.liu@gmail.com
-
-Discord: swarmlover#4063

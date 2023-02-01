@@ -14,7 +14,7 @@ export const createNewName = async (value:any = '') => {
 
 export const updateName = async (name:any, value: any = '') => {
 	if (name == null || name == undefined){
-		return createNewName(value);
+		return await createNewName(value);
 	}
 
 	if(typeof(name) == 'string'){

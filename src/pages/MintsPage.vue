@@ -21,7 +21,7 @@
               size="large"
               clearable
             >
-              <template #append>.fns
+              <template #append>{{constant.nameSpaceSurfix}}
               </template>
             </el-input>
             <el-button :icon="Search" type="primary" size="large" @click="onClickToSearch">Search</el-button>
@@ -145,7 +145,7 @@ const onClickToSearch = async () => {
     showName.value = true;
   }
 
-  const name = searchName.value + ".fns";
+  const name = searchName.value + constant.nameSpaceSurfix;
 
   const nameInfo = await filenamespace.getNameInfoByName(name);
 

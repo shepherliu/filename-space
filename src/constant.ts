@@ -52,6 +52,9 @@ export const bundlrTestUrl = "https://devnet.bundlr.network";
 //boba toekn testnet contract address 
 export const bobaTestContractAddress = "0xF5B97a4860c1D81A1e915C40EcCB5E4a5E6b8309";
 
+//name space surfix
+export const nameSpaceSurfix = ".fns";
+
 //green dao contract address
 export const fileNameSpaceContractAddress = {
   5: "0x9F0eb3619F5FB576FB64f6d324C6f91a926491c5",

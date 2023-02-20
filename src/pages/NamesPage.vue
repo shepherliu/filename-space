@@ -286,7 +286,12 @@ const onClickToSearch = async () => {
     return;
   }
 
-  const nameInfo = await filenamespace.getNameInfoByName(searchContent.value);
+  let searchName = searchContent.value;
+  if(searchName.endsWith(constant.nameSpaceSurfix) === false){
+    searchName = searchName + constant.nameSpaceSurfix;
+  }
+  
+  const nameInfo = await filenamespace.getNameInfoByName(searchName);
   if(nameInfo.nameId > 0){
     const newList = new Array();
     nameInfo.isOwner = nameInfo.owner.toLowerCase() === connectState.userAddr.value.toLowerCase();

@@ -4,7 +4,7 @@
  
  There are some features which maybe attract you:
  
- 1. using filename-space, you can register a ".fil" name to bind your wallet address.
+ 1. using filename-space, you can register a ".fns" name to bind your wallet address.
 
  2. stack to mint, you must stack some eth tokens to mint a name nft. and when you burn it, it will return the stack fees to your wallet.
  

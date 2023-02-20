@@ -55,6 +55,7 @@ export const bobaTestContractAddress = "0xF5B97a4860c1D81A1e915C40EcCB5E4a5E6b83
 //green dao contract address
 export const fileNameSpaceContractAddress = {
   5: "0x62cf189De580c8AA595E7774142828f78BA85815",
+  3141: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   80001: "0x45Ab45c12489E04eEFf68dA55a42Cd9B1E758FD2",
 };
 
@@ -77,10 +78,12 @@ export const tokenList = {
   137: ['MATIC'],  
   250: ['FTM'],
   288: ['BOBA', 'ETH'],
+  314: ['FIL'],
   588: ['METIS', 'ETH'],
   1001: ['KLAY'],
   1088: ['METIS', 'ETH'],
   2828: ['LYXT'],
+  3141: ['tFIL'],
   4689: ['IOTX'],
   8217: ['KLAY'],
   9000: ['tEVMOS'],
@@ -239,6 +242,13 @@ export const chainList = [
     rpcUrls: 'https://rpc.l16.lukso.network',
     blockExplorerUrls: 'https://explorer.execution.l16.lukso.network',
   },  
+  {
+    chainId: 3141,
+    chainName: 'Filecoin Hyperspace Testnet',
+    nativeCurrency: 'tFIL',
+    rpcUrls: 'https://api.hyperspace.node.glif.io/rpc/v1',
+    blockExplorerUrls: 'https://hyperspace.filfox.info/en',
+  },
   {
     chainId: 4689,
     chainName: 'IoTex Chain Mainnet',

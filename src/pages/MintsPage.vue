@@ -21,7 +21,7 @@
               size="large"
               clearable
             >
-              <template #append>.fil
+              <template #append>.fns
               </template>
             </el-input>
             <el-button :icon="Search" type="primary" size="large" @click="onClickToSearch">Search</el-button>
@@ -145,7 +145,7 @@ const onClickToSearch = async () => {
     showName.value = true;
   }
 
-  const name = searchName.value + ".fil";
+  const name = searchName.value + ".fns";
 
   const nameInfo = await filenamespace.getNameInfoByName(name);
 

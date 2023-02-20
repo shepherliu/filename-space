@@ -92,7 +92,7 @@ contract FilenameSpace is KeeperCompatibleInterface, ReentrancyGuard, ERC721Enum
         require(balanceOf(msg.sender) == 0, "address minted!");
 
         uint nameLength = bytes(name).length;
-        require(nameLength > 4 && bytes(name)[0] != '.' && bytes(name)[nameLength-4] == '.' && bytes(name)[nameLength-3] == 'f' && bytes(name)[nameLength-2] == 'i' && bytes(name)[nameLength-1] == 'l', "invalid name!");
+        require(nameLength > 4 && bytes(name)[0] != '.' && bytes(name)[nameLength-4] == '.' && bytes(name)[nameLength-3] == 'f' && bytes(name)[nameLength-2] == 'n' && bytes(name)[nameLength-1] == 's', "invalid name!");
 
         //stack token to mint
         uint256 nameFee = nameLength*_baseFee;

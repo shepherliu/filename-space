@@ -58,6 +58,7 @@ export const nameSpaceSurfix = ".fns";
 //green dao contract address
 export const fileNameSpaceContractAddress = {
   5: "0x9F0eb3619F5FB576FB64f6d324C6f91a926491c5",
+  1422: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   3141: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   80001: "0x682021B3e777765e68f6Ab0B0b094E86Fb9c53be",
 };
@@ -84,6 +85,7 @@ export const tokenList = {
   314: ['FIL'],
   588: ['METIS', 'ETH'],
   1001: ['KLAY'],
+  1422: ['ETH'],
   1088: ['METIS', 'ETH'],
   2828: ['LYXT'],
   3141: ['tFIL'],
@@ -230,7 +232,14 @@ export const chainList = [
     nativeCurrency: 'KLAY',
     rpcUrls: 'https://api.baobab.klaytn.net:8651',
     blockExplorerUrls: 'https://www.klaytn.com/',
-  },      
+  },    
+  {
+    chainId: 1422,
+    chainName: 'Polygon zkEVM Testnet',
+    nativeCurrency: 'ETH',
+    rpcUrls: 'https://rpc.public.zkevm-test.net',
+    blockExplorerUrls: 'https://explorer.public.zkevm-test.net',
+  },
   {
     chainId: 1088,
     chainName: 'Metis Andromeda Mainnet',

@@ -61,6 +61,7 @@ export const fileNameSpaceContractAddress = {
   50: "0xd654dDC0F79b28E6b0C32ec13Fd9702450032343",
   1422: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   3141: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
+  5001: "0x8a19Fe77193451Dc95f658e76dBEac95dC499f94",
   80001: "0x682021B3e777765e68f6Ab0B0b094E86Fb9c53be",
 };
 
@@ -91,6 +92,8 @@ export const tokenList = {
   2828: ['LYXT'],
   3141: ['tFIL'],
   4689: ['IOTX'],
+  5000: ['BIT'],
+  5001: ['BIT'],
   8217: ['KLAY'],
   9000: ['tEVMOS'],
   9001: ['EVMOS'],
@@ -276,6 +279,20 @@ export const chainList = [
     rpcUrls: 'https://babel-api.mainnet.iotex.io',
     blockExplorerUrls: 'https://iotexscan.io',
   },  
+  {
+    chainId: 5000,
+    chainName: 'Mantle Chain Mainnet',
+    nativeCurrency: 'BIT',
+    rpcUrls: 'https://rpc.mantle.xyz',
+    blockExplorerUrls: 'https://explorer.mantle.xyz',
+  },
+  {
+    chainId: 5001,
+    chainName: 'Mantle Chain Testnet',
+    nativeCurrency: 'BIT',
+    rpcUrls: 'https://rpc.testnet.mantle.xyz',
+    blockExplorerUrls: 'https://explorer.testnet.mantle.xyz',
+  },
   {
     chainId: 8217,
     chainName: 'Klaytn Cypress Mainnet',

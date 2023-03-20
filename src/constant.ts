@@ -58,6 +58,7 @@ export const nameSpaceSurfix = ".fns";
 //green dao contract address
 export const fileNameSpaceContractAddress = {
   5: "0x9F0eb3619F5FB576FB64f6d324C6f91a926491c5",
+  50: "0xd654dDC0F79b28E6b0C32ec13Fd9702450032343",
   1422: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   3141: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   80001: "0x682021B3e777765e68f6Ab0B0b094E86Fb9c53be",
@@ -218,6 +219,13 @@ export const chainList = [
     nativeCurrency: 'ETH',
     rpcUrls: 'https://mainnet.boba.network',
     blockExplorerUrls: 'https://blockexplorer.boba.network',
+  },
+  {
+    chainId: 314,
+    chainName: 'Filecoin Chain Mainnet',
+    nativeCurrency: 'FIL',
+    rpcUrls: 'https://api.node.glif.io',
+    blockExplorerUrls: 'https://filfox.info/en',
   },
   {
     chainId: 588,

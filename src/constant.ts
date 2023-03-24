@@ -59,6 +59,7 @@ export const nameSpaceSurfix = ".fns";
 export const fileNameSpaceContractAddress = {
   5: "0x9F0eb3619F5FB576FB64f6d324C6f91a926491c5",
   50: "0xd654dDC0F79b28E6b0C32ec13Fd9702450032343",
+  314: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   1422: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   3141: "0x5755579e4eD12D114CcdaB4AE69c99eb00479476",
   5001: "0x8a19Fe77193451Dc95f658e76dBEac95dC499f94",
@@ -227,7 +228,7 @@ export const chainList = [
     chainId: 314,
     chainName: 'Filecoin Chain Mainnet',
     nativeCurrency: 'FIL',
-    rpcUrls: 'https://api.node.glif.io',
+    rpcUrls: 'https://rpc.ankr.com/filecoin',
     blockExplorerUrls: 'https://filfox.info/en',
   },
   {

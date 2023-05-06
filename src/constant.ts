@@ -86,6 +86,7 @@ export const tokenList = {
   250: ['FTM'],
   288: ['BOBA', 'ETH'],
   314: ['FIL'],
+  324: ['ETH'],
   588: ['METIS', 'ETH'],
   1001: ['KLAY'],
   1422: ['ETH'],
@@ -230,6 +231,13 @@ export const chainList = [
     nativeCurrency: 'FIL',
     rpcUrls: 'https://rpc.ankr.com/filecoin',
     blockExplorerUrls: 'https://filfox.info/en',
+  },
+  {
+    chainId: 324,
+    chainName: 'Zksync Era Mainnet',
+    nativeCurrency: 'ETH',
+    rpcUrls: 'https://mainnet.era.zksync.io',
+    blockExplorerUrls: 'https://mainnet.era.zksync.io',
   },
   {
     chainId: 588,
